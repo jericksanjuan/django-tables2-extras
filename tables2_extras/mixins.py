@@ -6,7 +6,7 @@ from .utils import model_table_factory, create_model_table, create_report_table
 from .config import TABLE_TEMPLATE
 
 __all__ = (
-    'ModelSingleTableMixin', 'TableHelperMixin'
+    'ModelSingleTableMixin', 'TableHelperMixin', 'DisplaySearchMixin', 'DefaultTemplateMixin'
 )
 
 
@@ -109,3 +109,18 @@ class DisplaySearchMixin(object):
         ctx = super(DisplaySearchMixin, self).get_context_data(**kwargs)
         ctx['display_search'] = self.get_display_search()
         return ctx
+
+
+class DefaultTemplateMixin(object):
+    default_template_name = None
+
+    def get_default_template_name(self):
+        return self.default_template_name
+
+    def get_template_names(self):
+        templates = super(DefaultTemplateMixin, self).get_template_names()
+        default_template = self.get_default_template_name()
+        if default_template:
+            templates.append(default_template)
+            return templates
+        return templates
