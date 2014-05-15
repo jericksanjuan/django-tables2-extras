@@ -1,0 +1,19 @@
+{% extends "tables2_extras/table.html" %}
+
+{% load i18n django_tables2 %}
+
+{% block pagination %}
+    {{ block.super }}
+    {% block table.report %}
+        {% if table.is_configured %}
+            <div class="pull-right btn-group">
+            {% for label, format in table.formats %}
+                <a class="btn btn-link" href="{% querystring table.param_report=format %}">
+                    <span class="glyphicon glyphicon-export"></span> {{ label }}
+                </a>
+            {% endfor %}
+            </div>
+            <div class="clearfix"></div>
+        {% endif %}
+    {% endblock table.report %}
+{% endblock %}
