@@ -102,6 +102,7 @@ class TableHelperMixin(object):
         self.config.configure(table)
         self.mtables = self.mtables + 1
         context[context_name or self.get_new_table_context_name()] = table
+        return table
 
     def convert_qs_to_list(self, qs, table_fields):
         qs_list = []
